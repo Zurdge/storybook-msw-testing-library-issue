@@ -7,7 +7,7 @@ const APIRequest = ():Promise<void>=>{
       if(!response.ok){
         reject(new Error("Responce was not OK!"))
       }else{
-        resolve()
+        resolve(response.json())
       }
     })
   })
@@ -18,12 +18,12 @@ const Page: FC = () => {
     <article>
       <h1>Example Page</h1>
       <button onClick={()=>
-        APIRequest().then(()=>{
-          setResult('SUCCESS')
+        APIRequest().then((response)=>{
+          setResult(JSON.stringify(response, null, 2))
         }).catch(()=>
           setResult("FAILURE"))
         }>Click to make API request</button>
-      <div>{result}</div>
+      <pre>{result}</pre>
     </article>
   );
 };
