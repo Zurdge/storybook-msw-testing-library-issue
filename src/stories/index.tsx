@@ -2,9 +2,7 @@ import { FC, useState } from 'react';
 
 const APIRequest = ():Promise<void>=>{
   return new Promise((resolve, reject)=>{
-    fetch('http://localhost:6006/api/test/', {
-      method:"get"
-    })
+    fetch('/msw/test/')
     .then((response)=>{
       if(!response.ok){
         reject(new Error("Responce was not OK!"))
