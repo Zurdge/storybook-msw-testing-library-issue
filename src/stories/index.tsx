@@ -2,12 +2,12 @@ import { FC, useState } from 'react';
 
 const APIRequest = ():Promise<void>=>{
   return new Promise((resolve, reject)=>{
-    fetch('/api/test', {
-      method:"GET"
+    fetch('http://localhost:6006/api/test/', {
+      method:"get"
     })
-    .then(({status})=>{
-      if(status !== 200){
-        reject(new Error("status was not 200!"))
+    .then((response)=>{
+      if(!response.ok){
+        reject(new Error("Responce was not OK!"))
       }else{
         resolve()
       }
@@ -19,9 +19,12 @@ const Page: FC = () => {
   return (
     <article>
       <h1>Example Page</h1>
-      <button onClick={()=>APIRequest().then(()=>{
-        setResult('SUCCESS')
-      }).catch(()=>setResult("FAILURE"))}>Click to make API request</button>
+      <button onClick={()=>
+        APIRequest().then(()=>{
+          setResult('SUCCESS')
+        }).catch(()=>
+          setResult("FAILURE"))
+        }>Click to make API request</button>
       <div>{result}</div>
     </article>
   );

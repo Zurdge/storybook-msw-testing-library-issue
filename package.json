@@ -65,7 +65,12 @@
     "@testing-library/dom": "^8.17.1",
     "@testing-library/user-event": "^14.4.3",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "msw": "^0.47.0",
+    "msw-storybook-addon": "^1.6.3",
     "prop-types": "^15.8.1",
     "webpack": "^5.74.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
