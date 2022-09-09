@@ -36,7 +36,6 @@ const resolve =
         res: ResponseFunction,
         ctx: RestContext
     ): MockedResponse | Promise<MockedResponse> => {
-        console.log('Stevens resolver function')
         let result;
         const shouldHaveBody = bodyMethods.includes(req.method);
 
