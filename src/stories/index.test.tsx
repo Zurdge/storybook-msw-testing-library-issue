@@ -19,5 +19,7 @@ describe('ExamplePage', () => {
             expect(pendingText).not.toHaveTextContent(/pending/i);
         })
 
+        screen.debug();
+
     });
 });

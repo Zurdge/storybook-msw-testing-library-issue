@@ -1,31 +1,34 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { FC, useState } from 'react';
+import { useAPIService } from './services';
 
-const APIRequest = ():Promise<void>=>{
-  return new Promise((resolve, reject)=>{
-    fetch('/msw/test/')
-    .then((response)=>{
-      if(!response.ok){
-        reject(new Error("Responce was not OK!"))
-      }else{
-        resolve(response.json())
-      }
-    })
-  })
+const QueryProvider:FC<any> = ({children})=>{
+  const [queryClient] = useState(() => new QueryClient());
+
+  return <QueryClientProvider client={queryClient}>
+  <Page/>
+  </QueryClientProvider>
 }
+
 const Page: FC = () => {
-  const [result, setResult] = useState<string>('pending')
+
+
+  const [counter, setCounter] = useState(0);
+
+    const {data, fetchStatus} = useAPIService({
+        counter,
+        onError: () => {
+            /* check the network tab */
+        },
+    });
+    const message = data ? data.response.message : 'pending';
   return (
     <article>
       <h1>Example Page</h1>
-      <button onClick={()=>
-        APIRequest().then((response)=>{
-          setResult(JSON.stringify(response, null, 2))
-        }).catch(()=>
-          setResult("FAILURE"))
-        }>Click to make API request</button>
-      <pre>{result}</pre>
+      <button onClick={()=>setCounter((prev) => prev + 1)}>Click to make API request</button>
+      <pre>{message}</pre>
     </article>
   );
 };
 
-export default Page
+export default QueryProvider
